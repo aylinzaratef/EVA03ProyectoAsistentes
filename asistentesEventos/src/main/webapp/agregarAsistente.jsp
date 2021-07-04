@@ -30,14 +30,37 @@
                                                     Asistente</span>
                                     </div>
                                     <div class="card-content">
-                                            <div class="field">
-                                                    <label class="label" for="rut-txt">Rut</label>
-                                                    <div class="control">
-                                                            <input type="text" class="input"
-                                                                    placeholder="12345678-9 o 123456789" autocomplete="off"
-                                                                    id="rut-txt" name="rut-txt" />
+                                            
+        
+                                                
+                                                    <div class="field">
+                                                            <label class="label" for="rut-txt">Rut</label>
+                                                            <div class="columns">
+                                                                <div class="column is-4">
+                                                                    <div class="control">
+                                                                            <input type="text" class="input"
+                                                                                    placeholder="12345678 o 123456789" autocomplete="off"
+                                                                                    id="rut-txt" name="rut-txt" maxlength="8" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="column is-1">
+                                                                    <div class="control has-text-centered">
+                                                                        <span>-</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="column is-1">
+                                                                    <div class="control">
+                                                                            <input type="text" class="input"
+                                                                                    placeholder="" autocomplete="off"
+                                                                                    id="dv-txt" name="dv-txt" maxlength="1"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                     </div>
-                                            </div>
+                                                
+                                                
+                                            
+                                            
                                             <div class="field">
                                                     <label class="label" for="nombre-txt">Nombre</label>
                                                     <div class="control">

@@ -35,9 +35,20 @@ public class IngresarAsistentesServlet extends HttpServlet {
         List<String> errores = new ArrayList<>();
 
         String rut = request.getParameter("rut-txt").trim();
-        if (rut.isEmpty()) {
+        if (rut.isEmpty()|| rut.length() != 8) {
                 errores.add("Debe ingresar un RUT.");
         }
+        
+        String dv = request.getParameter("dv-txt").trim();
+        if (dv.isEmpty()|| dv.length() != 1) {
+                errores.add("Debe ingresar un Dígito verificador para RUT.");
+        }
+        
+        String rutCompleto = rut+"-"+dv;
+        if(!this.validarRut(rutCompleto)){
+            errores.add("Debe ingresar un RUT válido.");
+        }
+        
         String nombre = request.getParameter("nombre-txt").trim();
         if (nombre.isEmpty()) {
                 errores.add("Debe ingresar un nombre.");
@@ -52,6 +63,9 @@ public class IngresarAsistentesServlet extends HttpServlet {
         int edad = 0;
         try {
             edad = Integer.parseInt(request.getParameter("edad-txt"));
+            if(edad < 18){
+                errores.add("La edad debe ser mayor o igual a 18");
+            }
         } catch (Exception e) {
             errores.add("Debe ingresar una edad");
         }
@@ -66,9 +80,11 @@ public class IngresarAsistentesServlet extends HttpServlet {
         String estado = request.getParameter("estado-select");
         
         if (errores.isEmpty()) {
+            
+            
 			
             Asistentes asistente = new Asistentes();
-            asistente.setRut(rut);
+            asistente.setRut(rutCompleto);
             asistente.setNombre(nombre);
             asistente.setApellido(apellido);
             asistente.setEdad(edad);
@@ -79,22 +95,47 @@ public class IngresarAsistentesServlet extends HttpServlet {
                 boolean resultado = asistenteController.registrarAsistente(asistente);
             } catch (Exception e) {
                 errores.add("El RUT ingresado ya se encuentra registrado.");
+                request.setAttribute("errores", errores);
             }
 
         } else {
             request.setAttribute("errores", errores);
         }
         
-		if (!errores.isEmpty()) {
+       if (!errores.isEmpty()) {
 
 			doGet(request, response);
 		} else {
 			response.sendRedirect("MostrarAsistentes");
 		}
-        
-        
             
         
+    }
+    
+    
+    
+    protected boolean validarRut(String rut) {
+            boolean validacion = false;
+            try {
+                    rut = rut.toUpperCase();
+                    rut = rut.replace(".", "");
+                    rut = rut.replace("-", "");
+                    int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+
+                    char verificador = rut.charAt(rut.length() - 1);
+
+                    int m = 0;
+                    int suma = 1;
+                    for (; rutAux != 0; rutAux /= 10) {
+                            suma = (suma + rutAux % 10 * (9 - m++ % 6)) % 11;
+                    }
+                    if (verificador == (char) (suma != 0 ? suma + 47 : 75)) {
+                            validacion = true;
+                    }
+
+            } catch (Exception e) {
+            }
+            return validacion;
     }
 
 }

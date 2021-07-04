@@ -1,9 +1,7 @@
 cl\inacap\asistentesEventos\JAXRSConfiguration.class
 cl\inacap\asistentesEventos\dao\AsistentesDAO.class
 cl\inacap\asistentesEventos\controller\AsistentesControllerInterfaces.class
-cl\inacap\asistentesEventos\web\MostrarAsistentesServlet.class
 cl\inacap\asistentesEventos\model\Asistentes.class
 cl\inacap\asistentesEventos\dao\AsistentesDAOInterface.class
-cl\inacap\asistentesEventos\web\IngresarAsistentesServlet.class
 cl\inacap\asistentesEventos\controller\AsistentesController.class
 cl\inacap\asistentesEventos\resources\JavaEE8Resource.class
